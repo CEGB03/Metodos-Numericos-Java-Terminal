@@ -43,6 +43,7 @@ public class LecturaMatriz {
                 while ((linea = br.readLine()) != null) {
                     /*for (i = 0; i < filas; i++) {*/
                     j = 0;
+                    System.out.println(linea);
                     String[] elementos = linea.split(" ");
                     for (String elemento : elementos) {
                         mCarga[i][j] = Double.parseDouble(elemento); // Convierte y almacena el valor en el arreglo

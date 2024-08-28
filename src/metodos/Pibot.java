@@ -2,8 +2,8 @@ package metodos;
 
 public class Pibot {
     private int filas=0;
-    Double[][] A;
-    Double[]b;
+    private Double[][] A;
+    private Double[]b;
 
     double factor = 0;
     int p = 0;

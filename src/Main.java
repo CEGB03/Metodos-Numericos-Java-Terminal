@@ -1,7 +1,7 @@
 
 import metodos.LocRaices.Abiertos.*;
 import metodos.LocRaices.Cerrados.*;
-import metodos.SistEcLin.EliminacionGaussiana;
+import metodos.SistEcLin.*;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -17,7 +17,8 @@ public class Main {
                 "\n3) Punto Fijo." +
                 "\n4) Newton-Rapson."+
                 "\n5) Tangente."+
-                "\n6) Sistema de Ecuacion Lineal.");
+                "\n6) Sistema de Eliminacion Gaussiana."+
+                "\n7) Sistema por Eliminacion Iterativa.");
         int op = sc.nextInt();
 
         switch (op){
@@ -48,6 +49,9 @@ public class Main {
                 String dir = sc.nextLine();
                 EliminacionGaussiana eg = new EliminacionGaussiana(dir);
                 eg.eliminar();
+                break;
+            case 7:
+                MetodosIterativos mi = new MetodosIterativos();
                 break;
             default:
                 System.out.println("Metodo no reconocido");

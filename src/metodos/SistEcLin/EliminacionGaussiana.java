@@ -60,12 +60,15 @@ public class EliminacionGaussiana {
             System.exit(30);
         }
         System.out.println("det(A)= " + det);
+        imprimirSolucion();
         // Retro-sustitución  EMA
         for (int i = filas - 1; i >= 0; i--) {
             double suma = b[i];
+            imprimirSolucion();
             for (int j = i + 1; j < filas; j++) {
                 suma -= A[i][j] * x[j];
             }
+            //imprimirSolucion();
             x[i] = suma / A[i][i];
         }
 
