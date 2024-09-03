@@ -1,4 +1,5 @@
 
+import metodos.Interpolacion.Interpolaciones;
 import metodos.LocRaices.Abiertos.*;
 import metodos.LocRaices.Cerrados.*;
 import metodos.SistEcLin.*;
@@ -18,7 +19,8 @@ public class Main {
                 "\n4) Newton-Rapson."+
                 "\n5) Tangente."+
                 "\n6) Sistema de Eliminacion Gaussiana."+
-                "\n7) Sistema por Eliminacion Iterativa.");
+                "\n7) Sistema por Eliminacion Iterativa."+
+                "\n8) Interpolacion.");
         int op = sc.nextInt();
 
         switch (op){
@@ -52,6 +54,9 @@ public class Main {
                 break;
             case 7:
                 MetodosIterativos mi = new MetodosIterativos();
+                break;
+            case 8:
+                Interpolaciones i = new Interpolaciones();
                 break;
             default:
                 System.out.println("Metodo no reconocido");

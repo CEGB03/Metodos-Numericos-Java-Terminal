@@ -9,6 +9,7 @@ public class LecturaMatriz {
         private int filas=0;
         private int columnas=0;
         private int correccionM=0;
+        Double[][] mAux; // Matriz para almacenar los valores leídos
         Double[][] mCarga; // Matriz para almacenar los valores leídos
         Double[][] mFinal;
         Double[]b;
@@ -34,10 +35,10 @@ public class LecturaMatriz {
                 int i = 0;
                 int j = 0;
 
-                mCarga=new Double[filas][(filas+1)];
+                mAux=new Double[filas][(filas+1)];
                 for (int ii=0; ii<filas; ii++){
                     for (int jj=0; jj<(filas+1); jj++)
-                        mCarga[ii][jj]=0.;
+                        mAux[ii][jj]=0.;
                 }
                 c=0;
                 while ((linea = br.readLine()) != null) {
@@ -46,7 +47,7 @@ public class LecturaMatriz {
                     System.out.println(linea);
                     String[] elementos = linea.split(" ");
                     for (String elemento : elementos) {
-                        mCarga[i][j] = Double.parseDouble(elemento); // Convierte y almacena el valor en el arreglo
+                        mAux[i][j] = Double.parseDouble(elemento); // Convierte y almacena el valor en el arreglo
                         j++;
                     }
                     i++;
@@ -54,6 +55,8 @@ public class LecturaMatriz {
 
                 br.close();
                 columnas = j;
+                mCarga = new Double[filas][columnas];
+                mCarga = mAux.clone();
                 if ((columnas - filas) != 0) {
                     correccionM = 2;
                     System.out.println("numero de columnas de matriz irregular="+columnas+"\nDice irregular ya que la matriz al inicio contiene el vector b");
@@ -101,4 +104,5 @@ public class LecturaMatriz {
         public int getColumnas() {return columnas;}
 
         public int getFilas() {return filas;}
+        public  Double[][] getmCarga(){return mCarga;}
 }
