@@ -39,7 +39,7 @@ public class Lagrange {
         e = Math.abs(func(coeficienteInterpolador) - sum);
 
         System.out.println("El valor interpolado para "+coeficienteInterpolador+" es: "+sum+", con un error de "+e+".");
-        imprimirPolinomio();
+        imprimirPolinomioCnk();
     }
     private void separarXY(){
         x = new Double[filas];
@@ -52,38 +52,31 @@ public class Lagrange {
             System.out.println(x[i]+";"+y[i]);
         }
     }
-    private void imprimirPolinomio(){
-        //sustitucion regresiva
-        Double suma= (double) 0;
-        int fila = filas;
-        Double[] a =new Double[fila]; //vector de soluciones
+    private void imprimirPolinomioCnk() {
+        StringBuilder polinomio = new StringBuilder();
 
-        //valor de la ultima variable
-        a[fila-1] = b[fila-1] / A[fila-1][fila-1];
-        System.out.println( "----- Soluciones -----");
-        System.out.println("a["+ (fila-1) +"]= " + a[fila-1]);
+        for (int i = 0; i < filas; i++) {
+            StringBuilder termino = new StringBuilder();
+            termino.append("\n").append(y[i]);
 
-        for (int i=fila-2; i>=0; i--)
-        {
-            suma = b[i];
-            for(int j=i+1; j<=fila-1; j++)
-            {
-                suma-= A[i][j]*a[j];
+            for (int j = 0; j < filas; j++) {
+                if (j != i) {
+                    termino.append(" * (x - ").append(x[j]).append(") / (").append(x[i]).append(" - ").append(x[j]).append(")");
+                }
             }
-            a[i]=(suma)/A[i][i];
-            System.out.println("a["+ i + "]= " + a[i]);
-        }
-        System.out.println("\n");
 
-        //Imprimo el polinomio final:
-        System.out.println("P = " );
-        for(int i=0,j=0;i<filas;i++,j++)
-        {
-            if(j==0)
-                System.out.print( a[i] +" + ");
-            else
-                System.out.println(a[i] + " " + "x^" + j + "+");
+            // Añadir el signo más entre términos (excepto antes del primer término)
+            if (i > 0 && y[i] >= 0) {
+                polinomio.append(" + ");
+            } else if (y[i] < 0) {
+                polinomio.append(" - ");
+                termino.deleteCharAt(0);  // Eliminar el signo negativo de y[i] si es negativo
+            }
 
+            polinomio.append(termino);
         }
+
+        System.out.println("El polinomio interpolador de Lagrange es: ");
+        System.out.println(polinomio.toString());
     }
 }
