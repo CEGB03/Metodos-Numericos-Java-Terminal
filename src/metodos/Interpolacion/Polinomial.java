@@ -13,7 +13,7 @@ public class Polinomial {
     public Polinomial(Double[][] A, int filas) {
         this.filas = filas;
         this.m = A;
-        separarXY();
+        //separarXY();
     }
     public void interpolar(Scanner sc) {
         System.out.println("\n\n***Ha seleccionado método de Polinomial***\n\n");
@@ -30,22 +30,26 @@ public class Polinomial {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < filas; j++) {
                 System.out.print(matrizA[i][j]);
-                System.out.println("\t");
+                System.out.print(" | ");
             }
-            System.out.println("\n");
+            System.out.println();
         }
+        System.out.println("Fin Mariz a");
         System.out.println("\nMatriz b\n");
         for (int i = 0; i < filas; i++) {
             System.out.print(matrizB[i]);
-            System.out.println("\t");
-        }*/
-        imprimirTabla();
+            System.out.print("\n");
+        }
+        System.out.println("Fin Mariz b");*/
+        //imprimirTabla();
         Pibot pibot = new Pibot(matrizA, matrizB, filas);
+        Pibot.imprimirMatriz(matrizA);
+        Pibot.imprimirVector(matrizB);
         pibot.triangulacionConPivot();
         Pibot.imprimirMatriz(matrizA);
         Pibot.imprimirVector(matrizB);
-        imprimirTabla();
-        imprimirPolinomioCnk();
+        //imprimirTabla();
+        //imprimirPolinomioCnk();
     }
 
     private void separarXY(){

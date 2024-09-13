@@ -1,11 +1,11 @@
-package metodos.Interpolacion;
+package metodos.Regresion;
 
 import metodos.LecturaMatriz;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Interpolaciones {
+public class Regresiones {
     static Scanner sc = new Scanner(System.in);
     Double[][] A;
     Double[] b;
@@ -13,35 +13,34 @@ public class Interpolaciones {
     int filas = 0, columnas = 0;
     String dir;
 
-    public Interpolaciones() throws FileNotFoundException {
-        System.out.println("Seleccione:  \n 1 --> Lagrange" +
-                                        "\n 2 --> Polinomial" +
-                                        "\n 3 --> \n");
+    public Regresiones() throws FileNotFoundException {
+        System.out.println("Seleccione:  \n 1 --> Lineal" +
+                "\n 2 --> Polinomial(Cuadrados Minimos)" +
+                "\n 3 --> Proximamente...");
         int intertpolaciones = Integer.parseInt(sc.nextLine());
-        sc.nextLine();
+        //sc.nextLine();
 
         switch (intertpolaciones) {
             case 1:
                 System.out.println("Ingresar el nombre del archivo donde esta la matriz");
                 dir = sc.nextLine();
                 lectura(dir);
-                Lagrange l = new Lagrange(A, filas, columnas);
-                l.interpolar(sc);
+                RegresionLineal lineal = new RegresionLineal(A, filas, columnas);
+                lineal.regresion();
                 break;
 
             case 2:
                 System.out.println("Ingresar el nombre del archivo donde esta la matriz");
                 dir = sc.nextLine();
                 lectura(dir);
-                Polinomial p = new Polinomial(A, filas);
-                p.interpolar(sc);
+                RegresionPolinomial polinomial = new RegresionPolinomial(A, filas, columnas);
+                polinomial.regresion();
                 break;
             case 3:
                 System.out.println("Ingresar el nombre del archivo donde esta la matriz");
                 dir = sc.nextLine();
                 lectura(dir);
-                /*GaussSeidelRelajacion gsr = new GaussSeidelRelajacion(A, b, filas);
-                gsr.eliminar(sc);*/
+
                 break;
 
             default:

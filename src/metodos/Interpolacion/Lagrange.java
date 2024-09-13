@@ -41,17 +41,17 @@ public class Lagrange {
         System.out.println("El valor interpolado para "+coeficienteInterpolador+" es: "+sum+", con un error de "+e+".");
         imprimirPolinomioCnk();
     }
-    private void separarXY(){
-        x = new Double[filas];
-        y = new Double[filas];
-        for (int i = 0; i < filas; i++) {
-            x[i] = m[i][0];
-            y[i] = m[i][1];
+        private void separarXY(){
+            x = new Double[filas];
+            y = new Double[filas];
+            for (int i = 0; i < filas; i++) {
+                x[i] = m[i][0];
+                y[i] = m[i][1];
+            }
+            for (int i = 0; i < filas; i++) {
+                System.out.println(x[i]+";"+y[i]);
+            }
         }
-        for (int i = 0; i < filas; i++) {
-            System.out.println(x[i]+";"+y[i]);
-        }
-    }
     private void imprimirPolinomioCnk() {
         StringBuilder polinomio = new StringBuilder();
 

@@ -14,24 +14,28 @@ public class Pibot {
         this.b=matrizB;
         this.filas=cantFilas;
     }
-    public void pibotear(){
-        double errorMinimo = 1e-5; //ACORDARSE DE CAMBIARLO!!!
+
+    public void pibotear() {
+        double errorMinimo = 1e-5; // Cambiar si es necesario
         // Pivoteo parcial
         for (int jj = 0; jj < filas; jj++) {
             // Encontrar el elemento máximo en la columna actual
             p = jj;
-            if (Math.abs(A[jj][jj])<errorMinimo){
+            if (Math.abs(A[jj][jj]) < errorMinimo) {
                 for (int ll = jj + 1; ll < filas; ll++) {
-                    if (Math.abs(A[ll][jj]) > Math.abs(A[jj][jj]))
+                    if (Math.abs(A[ll][jj]) > Math.abs(A[jj][jj])) {
                         p = ll;
+                    }
                 }
                 // Intercambiar filas
                 if (p != jj) {
-                    for (int mm = 1; mm < filas-1; mm++) {
+                    // Cambiar el índice para recorrer todas las columnas
+                    for (int mm = 0; mm < A[0].length; mm++) {
                         swap = A[p][mm];
                         A[p][mm] = A[jj][mm];
                         A[jj][mm] = swap;
                     }
+                    // Intercambiar los elementos correspondientes del vector b
                     swap = b[p];
                     b[p] = b[jj];
                     b[jj] = swap;
@@ -39,6 +43,7 @@ public class Pibot {
             }
         }
     }
+
     public void triangulacionConPivot(){
         double f;
         Double aux;

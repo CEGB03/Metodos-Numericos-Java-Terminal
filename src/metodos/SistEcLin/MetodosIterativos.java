@@ -1,5 +1,7 @@
 package metodos.SistEcLin;
 
+import metodos.LecturaMatriz;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 

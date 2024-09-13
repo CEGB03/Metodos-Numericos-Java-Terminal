@@ -1,4 +1,4 @@
-package metodos.SistEcLin;
+package metodos;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -59,7 +59,7 @@ public class LecturaMatriz {
                 mCarga = mAux.clone();
                 if ((columnas - filas) != 0) {
                     correccionM = 2;
-                    System.out.println("numero de columnas de matriz irregular="+columnas+"\nDice irregular ya que la matriz al inicio contiene el vector b");
+                    //System.out.println("numero de columnas de matriz irregular="+columnas+"\nDice irregular ya que la matriz al inicio contiene el vector b");
                     //imprimo la matriz para verificar que lo leyo correctamente
                     columnas--;
                     mFinal=new Double[filas][columnas];
@@ -71,11 +71,12 @@ public class LecturaMatriz {
                     }
 
                     //Impresion de la matriz completa luego de la copia.
+                    /*System.out.println("Impresion de los datos recuperados del archivo");
                     for (i = 0; i < filas; i++) {
                         for (j = 0; j < columnas; j++)
                             System.out.print(mFinal[i][j]+" ");
                         System.out.println("| "+b[i]);
-                    }
+                    }*/
                 } else {
                     correccionM = 1;
                     System.out.println("No hay matriz b\n");
@@ -91,6 +92,7 @@ public class LecturaMatriz {
                         System.out.println();
                     }
                 }
+                System.out.println("Fin de la recumeracion.");
             } catch (IOException e){
                 //throw new FileNotFoundException seria la excepcion para cortar el programa si hace falta, la parte de
                 throw new FileNotFoundException("No se puede abrir el archivo .dat.");
