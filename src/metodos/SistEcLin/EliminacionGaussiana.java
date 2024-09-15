@@ -13,10 +13,10 @@ public class EliminacionGaussiana {
     Double[][] A; // Matriz de coeficientes
     Double[] b;   // Vector de términos independientes
     Double[] x;   // Solución del sistema
-    int filas = 0, columnas = 0;
-    double factor = 0;
-    int p = 0;
-    Double swap = (double) 0;
+    int filas = 0, columnas = 0; // Dimensiones de la matriz
+    double factor = 0; // Factor utilizado en el proceso de pivoteo
+    int p = 0; // Variable para almacenar el índice del pivote
+    Double swap = (double) 0; // Variable temporal para intercambio en el pivoteo
 
     /**
      * Constructor que inicializa la matriz A y el vector b desde un archivo.
@@ -25,15 +25,15 @@ public class EliminacionGaussiana {
      * @throws FileNotFoundException Si el archivo no se encuentra.
      */
     public EliminacionGaussiana(String s) throws FileNotFoundException {
-        //System.out.println("s = " + s);
+        // Se utiliza la clase LecturaMatriz para obtener los datos desde el archivo
         LecturaMatriz lecturaMatriz = new LecturaMatriz(s);
-        filas = lecturaMatriz.getFilas();
-        columnas = lecturaMatriz.getColumnas();
-        A = new Double[filas][columnas];
-        b = new Double[filas];
-        x = new Double[filas];
-        A = lecturaMatriz.getmFinal();
-        b = lecturaMatriz.getB();
+        filas = lecturaMatriz.getFilas(); // Asignar número de filas
+        columnas = lecturaMatriz.getColumnas(); // Asignar número de columnas
+        A = new Double[filas][columnas]; // Inicializar matriz A
+        b = new Double[filas]; // Inicializar vector b
+        x = new Double[filas]; // Inicializar vector de solución x
+        A = lecturaMatriz.getmFinal(); // Obtener la matriz A desde el archivo
+        b = lecturaMatriz.getB(); // Obtener el vector b desde el archivo
     }
 
     /**
@@ -46,12 +46,12 @@ public class EliminacionGaussiana {
      * @param filas Número de filas (dimensión) de la matriz A.
      */
     public EliminacionGaussiana(Double[][] A, Double[] b, Double[] x, int filas) {
-        this.A = A;
-        this.b = b;
-        this.x = x;
-        this.filas = filas;
-        this.columnas = filas;
-        eliminar();
+        this.A = A; // Asignar matriz A
+        this.b = b; // Asignar vector b
+        this.x = x; // Asignar vector de solución x
+        this.filas = filas; // Asignar número de filas
+        this.columnas = filas; // La matriz debe ser cuadrada, por lo que filas = columnas
+        eliminar(); // Ejecutar el proceso de eliminación gaussiana
     }
 
     /**
@@ -60,16 +60,11 @@ public class EliminacionGaussiana {
      * y finalmente realiza la retro-sustitución para encontrar la solución.
      */
     public void eliminar() {
-        //System.out.println("Vuelta al main.\n");
-
         // Verificar si la matriz es cuadrada
         if (filas != columnas) {
             System.out.println(filas + "x" + columnas + "\nLa matriz no es cuadrada, no se puede resolver usando eliminacion gaussiana.");
-            System.exit(20);
+            System.exit(20); // Termina el programa si la matriz no es cuadrada
         }
-
-        /*System.out.println("Imprimir antes de pibot");
-        imprimir();*/
 
         // Realizar pivoteo parcial
         pivoteoParcial();
@@ -77,12 +72,13 @@ public class EliminacionGaussiana {
         // Verificar si la matriz es singular
         if (esMatrizSingular()) {
             System.err.println("Matriz singular, no se puede resolver.\n");
-            System.exit(30);
+            System.exit(30); // Termina el programa si la matriz es singular
         }
 
-        // Realizar la retro-sustitución
+        // Realizar la retro-sustitución para resolver el sistema
         retroSustitucion();
 
+        // Imprimir el resultado final de la solución
         System.out.println("Matriz Solucion:");
         imprimirSolucion();
     }
@@ -92,19 +88,19 @@ public class EliminacionGaussiana {
      * Utiliza la clase Pibot para gestionar el proceso de pivoteo y triangulación.
      */
     private void pivoteoParcial() {
-        // Inicialización del pivoteo
+        // Inicialización del pivoteo usando la clase Pibot
         Pibot pibot = new Pibot(A, b, filas);
         pibot.pibotear(); // Realiza el pivoteo parcial
 
+        // Actualizar los valores de A, b, factor y otras variables tras el pivoteo
         A = pibot.getA();
         b = pibot.getB();
         factor = pibot.getFactor();
         swap = pibot.getSwap();
         p = pibot.getP();
 
-        //System.out.println("Imprimir despues de pibot y triangulacion");
-        pibot.triangulacionConPivot(); // Triangulación superior
-        //imprimir();
+        // Realizar la triangulación superior
+        pibot.triangulacionConPivot();
     }
 
     /**
@@ -113,12 +109,12 @@ public class EliminacionGaussiana {
      * @return true si la matriz es singular, false en caso contrario.
      */
     private boolean esMatrizSingular() {
-        int det = 1;
+        int det = 1; // Variable para calcular el determinante
         for (int ii = 0; ii < filas; ii++) {
-            det *= A[ii][ii];
+            det *= A[ii][ii]; // Multiplicar los elementos de la diagonal
         }
         System.out.println("det(A)= " + det);
-        return det == 0;
+        return det == 0; // Retornar si el determinante es 0 (matriz singular)
     }
 
     /**
@@ -126,12 +122,13 @@ public class EliminacionGaussiana {
      * Este método utiliza la matriz triangular superior resultante de la eliminación gaussiana.
      */
     private void retroSustitucion() {
+        // Recorre las filas de abajo hacia arriba para realizar la retro-sustitución
         for (int i = filas - 1; i >= 0; i--) {
-            double suma = b[i];
+            double suma = b[i]; // Iniciar la suma con el valor correspondiente de b
             for (int j = i + 1; j < filas; j++) {
-                suma -= A[i][j] * x[j];
+                suma -= A[i][j] * x[j]; // Restar los productos ya conocidos
             }
-            x[i] = suma / A[i][i];
+            x[i] = suma / A[i][i]; // Resolver para la incógnita x[i]
         }
     }
 
@@ -140,14 +137,15 @@ public class EliminacionGaussiana {
      * Esto se utiliza principalmente para depuración y verificación visual del sistema.
      */
     public void imprimir() {
-        int filas = A.length;
-        int columnas = A[0].length; // Obtener el número de columnas de la primera fila
+        int filas = A.length; // Número de filas de la matriz
+        int columnas = A[0].length; // Número de columnas de la primera fila
 
+        // Imprimir cada elemento de la matriz A
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 System.out.print(A[i][j] + " ");
             }
-            System.out.println();
+            System.out.println(); // Nueva línea al final de cada fila
         }
         System.out.println();
     }
@@ -158,7 +156,7 @@ public class EliminacionGaussiana {
     public void imprimirSolucion() {
         System.out.println("Solucion x:");
         for (int ii = 0; ii < filas; ii++) {
-            System.out.println("x[" + (ii + 1) + "] = " + x[ii]);
+            System.out.println("x[" + (ii + 1) + "] = " + x[ii]); // Imprimir cada solución
         }
         System.out.println();
     }
@@ -169,7 +167,7 @@ public class EliminacionGaussiana {
      * @return Vector x.
      */
     public Double[] getX() {
-        return x;
+        return x; // Retornar el vector de soluciones x
     }
 
     /**
@@ -178,7 +176,7 @@ public class EliminacionGaussiana {
      * @return Vector b.
      */
     public Double[] getB() {
-        return b;
+        return b; // Retornar el vector b
     }
 
     /**
@@ -187,7 +185,7 @@ public class EliminacionGaussiana {
      * @return Matriz A.
      */
     public Double[][] getA() {
-        return A;
+        return A; // Retornar la matriz de coeficientes A
     }
 
     /**
@@ -196,6 +194,6 @@ public class EliminacionGaussiana {
      * @return Número de filas de la matriz.
      */
     public int getFilas() {
-        return filas;
+        return filas; // Retornar el número de filas de la matriz
     }
 }
