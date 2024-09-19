@@ -21,9 +21,9 @@ public class Biseccion {
      */
     public void biseccion() {
         // Solicitar al usuario los límites del intervalo
-        System.out.println("Ingrese el límite inferior del intervalo: ");
+        System.out.println("Ingrese el límite inferior(a) del intervalo: ");
         a = Double.parseDouble(sc.nextLine()); // Leer el valor de a
-        System.out.println("Ingrese el límite superior del intervalo: ");
+        System.out.println("Ingrese el límite superior(b) del intervalo: ");
         b = Double.parseDouble(sc.nextLine()); // Leer el valor de b
         System.out.println("Ingrese la tolerancia: ");
         tolerancia = Double.parseDouble(sc.nextLine()); // Leer el valor de la tolerancia
@@ -48,6 +48,8 @@ public class Biseccion {
 
                 iterator++; // Incrementar el contador de iteraciones
 
+                if (iterator == 10)
+                    break;
                 // Repetir el proceso hasta que el error sea menor que la tolerancia
             } while (error > tolerancia);
 
@@ -71,6 +73,8 @@ public class Biseccion {
     double funcion(double x) {
         // Aquí se define la función f(x)
         // Ejemplo: f(x) = -2 + 7*x - 5*x^2 + 6*x^3
-        return -2 + (7 * x) - (5 * x * x) + (6 * x * x * x);
+        //return -2 + (7 * x) - (5 * x * x) + (6 * x * x * x);
+        //Funcion  ln(x^2+1)-sen(x)
+        return Math.log(x*x+1)-Math.sin(x);// Funcion 1 b1 Primer parcial
     }
 }

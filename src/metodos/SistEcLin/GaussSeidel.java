@@ -1,5 +1,7 @@
 package metodos.SistEcLin;
 
+import metodos.Pibot;
+
 import java.util.Scanner;
 
 /**
@@ -39,7 +41,9 @@ class GaussSeidel {
     public void eliminar(Scanner sc) {
 
         System.out.println("\n\n***Ha seleccionado método de Gauss Seidel***\n\n");
-
+        Pibot pibot = new Pibot(a, b, filas);
+        pibot.pivoteo_GPT();
+        imprimirMatriz();
         // Verificar si la matriz es diagonalmente dominante antes de proceder
         boolean check = diagonalmenteDominante(a, filas);
         if (!check) System.exit(0);
@@ -140,5 +144,13 @@ class GaussSeidel {
             }
         }
         return true;  // Retornar true si la matriz es diagonalmente dominante
+    }
+    public void imprimirMatriz() {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[i].length; j++) {
+                System.out.print(a[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

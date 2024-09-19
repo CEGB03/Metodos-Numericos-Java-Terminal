@@ -34,7 +34,14 @@ public class RegulaFalsi {
                 contador++; // Incrementar el contador de iteraciones
 
                 // Calcular el punto c usando la fórmula del método de la falsa posición
-                c = (a * funcion(b) - b * funcion(a)) / (funcion(b) - funcion(a));
+                Double funEvaA = funcion(a);
+                Double funEvaB = funcion(b);
+                Double aXFB = a * funEvaB;
+                Double bXFA = b * funEvaA;
+                Double funBmFunA = funEvaB - funEvaA;
+                Double aXFBmbXFA = aXFB - bXFA;
+                Double aXFBmbXFADfunBmFunA = aXFBmbXFA/funBmFunA;
+                c = ( aXFBmbXFADfunBmFunA)  ;
 
                 // Verificar en qué parte del intervalo está la raíz
                 if (funcion(a) * funcion(c) > 0) {
@@ -48,6 +55,8 @@ public class RegulaFalsi {
                 // Calcular el error como la mitad del tamaño del intervalo actual
                 error = (b - a) / 2;
 
+                if (contador == 10)
+                    break;
                 // Repetir el proceso hasta que el error sea menor que la tolerancia o se alcance el máximo de iteraciones
             } while (error > tolerancia && contador < 150000);
 
@@ -71,6 +80,8 @@ public class RegulaFalsi {
     double funcion(double x) {
         // Aquí se define la función f(x)
         // Ejemplo: f(x) = -2 + 7*x - 5*x^2 + 6*x^3
-        return -2 + (7 * x) - (5 * x * x) + (6 * x * x * x);
+        //return -2 + (7 * x) - (5 * x * x) + (6 * x * x * x);
+        //Funcion  ln(x^2+1)-sen(x)
+        return Math.log(x*x+1)-Math.sin(x);// Funcion 1 b1 Primer parcial
     }
 }

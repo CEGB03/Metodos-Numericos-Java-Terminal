@@ -83,7 +83,7 @@ public class RegresionLineal {
             for(int j = 0 ; j < 2 ; j++){
                 System.out.print("a["+i+"]["+j+"] = " + a[i][j] + " ");
             }
-            System.out.print("| b["+i+"] = " + "| " + b[i] + "\n");
+            System.out.print("| b["+i+"] = " + b[i] + "\n");
         }
 
         // Crea una instancia de EliminacionGaussiana para resolver el sistema
@@ -119,6 +119,28 @@ public class RegresionLineal {
 
         // Calcula y muestra el error cuadrático medio y otros métricas de ajuste
         error(x, a, 1, a.length);
+
+        imprimirPolinomio(x);
+    }
+    private void imprimirPolinomio(Double[] soluciones) {
+        int grado = 1;
+        System.out.println("Polinomio:");
+        for (int exponente = 0; exponente <= grado; exponente++) {
+            if (soluciones[exponente] != null) {
+                if (exponente == 0) {
+                    System.out.print(soluciones[exponente]);
+                } else {
+                    if (soluciones[exponente] >= 0) {
+                        System.out.print(" + " + soluciones[exponente] + "x^" + exponente);
+                    } else {
+                        System.out.print(" " + soluciones[exponente] + "x^" + exponente);
+                    }
+                }
+            } else {
+                System.out.print(" (coeficiente no definido para x^" + exponente + ")");
+            }
+        }
+        System.out.println();
     }
 
     /**

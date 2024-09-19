@@ -22,7 +22,9 @@ public class NewtonRapson {
      * @return El resultado de f(x) para el valor dado.
      */
     double f(double x){
-        return x * x - 4;  // Función f(x) = x^2 - 4
+        //return x * x - 4;  // Función f(x) = x^2 - 4
+        //Funcion  ln(x^2+1)-sen(x)
+        return Math.log(Math.pow(x,2)+1)-Math.sin(x);// Funcion Eje 1 Primer parcial
     }
 
     /**
@@ -32,7 +34,8 @@ public class NewtonRapson {
      * @return El resultado de f'(x) para el valor dado.
      */
     double fPrima(double x){
-        return 2 * x;  // Derivada de f(x), f'(x) = 2x
+        //return 2 * x;  // Derivada de f(x), f'(x) = 2x{
+        return ( (2*x) / (Math.pow(x,2) + 1) ) - cos(x);  // Derivada de f(x), f'(x) = 2x/x^2+1 - cos(x)
     }
 
     /**
@@ -41,11 +44,11 @@ public class NewtonRapson {
      */
     public void newtonRaphson(){
         // Solicita la tolerancia del usuario
-        System.out.println("Ingrese la tolerancia\n");
+        System.out.println("Ingrese la tolerancia");
         tolerancia = Double.parseDouble(sc.nextLine());  // Lee la tolerancia permitida
 
         // Solicita el valor inicial del punto
-        System.out.println("Ingrese el punto inicial\n");
+        System.out.println("Ingrese el punto inicial");
         xViejo = Double.parseDouble(sc.nextLine());  // Lee el valor inicial de x
 
         // Realiza iteraciones hasta que el error sea menor que la tolerancia o se alcancen 10000 iteraciones
@@ -61,13 +64,15 @@ public class NewtonRapson {
                 xNuevo = xViejo - (f(xViejo) / fPrima(xViejo));
                 error = abs(xNuevo - xViejo);  // Calcula el error como la diferencia entre xNuevo y xViejo
                 xViejo = xNuevo;  // Actualiza xViejo con el nuevo valor calculado
+                if (contador == 4)
+                    break;
             }
 
         } while (error > tolerancia && contador < 10000);  // Repite hasta que el error sea menor que la tolerancia
 
         // Muestra los resultados finales
-        System.out.println("\n\n\nLa raiz de f es: " + xNuevo);
-        System.out.println("\nEl valor del error en la raiz es de: " + error);
-        System.out.println("\nLa resolucion del problema tomó " + contador + " iteraciones");
+        System.out.println("La raiz de f es: " + xNuevo);
+        System.out.println("El valor del error en la raiz es de: " + error);
+        System.out.println("La resolucion del problema tomó " + contador + " iteraciones");
     }
 }

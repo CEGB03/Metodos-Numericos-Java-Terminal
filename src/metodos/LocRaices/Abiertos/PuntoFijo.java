@@ -22,7 +22,9 @@ public class PuntoFijo {
      * @return El resultado de g(x) para el valor dado.
      */
     double g(double x) {
-        return exp(-x);  // Función g(x) = e^(-x)
+        //return exp(-x);  // Función g(x) = e^(-x)
+        //Funcion  ln(x^2+1)-sen(x)
+        return Math.log(x*x+1)-Math.sin(x);// Funcion 1 b1 Primer parcial
     }
 
     /**

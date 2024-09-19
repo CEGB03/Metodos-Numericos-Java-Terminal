@@ -1,5 +1,6 @@
 package metodos.Interpolacion;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /**
@@ -23,7 +24,17 @@ public class Lagrange {
      * @return El valor de la función f(x).
      */
     private double func(double x) {
-        return x + 2 / x;
+        //return x + 2 / x;
+        //return 0.9999961926217174*Math.pow(x,2)+-1.999974103763422;//Modelo de parcial
+        //Funcion  ln(x^2+1)-sen(x)
+        return Math.log(Math.pow(x,2)+1)-Math.sin(x);// Funcion Eje 1 Primer parcial
+    }
+    private double funPol(double x) {
+        return -0.148 * (x - 1.2) / (1.0 - 1.2) * (x - 1.5) / (1.0 - 1.5) * (x - 1.75) / (1.0 - 1.75) * (x - 2.0) / (1.0 - 2.0) *
+                -0.04 * (x - 1.0) / (1.2 - 1.0) * (x - 1.5) / (1.2 - 1.5) * (x - 1.75) / (1.2 - 1.75) * (x - 2.0) / (1.2 - 2.0) *
+                0.0181 * (x - 1.0) / (1.5 - 1.0) * (x - 1.2) / (1.5 - 1.2) * (x - 1.75) / (1.5 - 1.75) * (x - 2.0) / (1.5 - 2.0) *
+                0.419 * (x - 1.0) / (1.75 - 1.0) * (x - 1.2) / (1.75 - 1.2) * (x - 1.5) / (1.75 - 1.5) * (x - 2.0) / (1.75 - 2.0) *
+                0.7 * (x - 1.0) *(x-1.2)/(2.0-1.2)*(x-1.5)/(2.0-1.5)*(x-1.75)/(2.0-1.75);
     }
 
     /**
@@ -74,11 +85,20 @@ public class Lagrange {
         // Calcular el error absoluto con respecto a la función definida
         e = Math.abs(func(coeficienteInterpolador) - sum);
 
+       /* Double evaluarPolinomio = funPol(1.6);
+        Double funEva = func(evaluarPolinomio);
+
+*/
         // Mostrar el resultado de la interpolación y el error
         System.out.println("El valor interpolado para " + coeficienteInterpolador + " es: " + sum + ", con un error de " + e + ".");
 
         // Imprimir el polinomio interpolador
         imprimirPolinomioCnk();
+
+        /*//Cosas Parcial 1
+        System.out.println("El valor 1.6 evaluado en el polinomio es de "+ evaluarPolinomio);
+        System.out.println("El valor 1.6 evaluado en el polinomio es de "+ funEva);
+        errorComunExacto(e, evaluarPolinomio);*/
     }
 
     /**
@@ -120,13 +140,13 @@ public class Lagrange {
                 }
             }
 
-            // Añadir el signo más entre términos (excepto antes del primer término)
+            /*// Añadir el signo más entre términos (excepto antes del primer término)
             if (i > 0 && y[i] >= 0) {
                 polinomio.append(" + ");
             } else if (y[i] < 0) {
                 polinomio.append(" - ");
                 termino.deleteCharAt(0);  // Eliminar el signo negativo de y[i] si es negativo
-            }
+            }*/
 
             polinomio.append(termino);
         }
@@ -134,5 +154,18 @@ public class Lagrange {
         // Mostrar el polinomio resultante
         System.out.println("El polinomio interpolador de Lagrange es: ");
         System.out.println(polinomio.toString());
+    }
+    private void errorComunExacto(Double c, Double raizReal) {
+        DecimalFormat df = new DecimalFormat("0.00001");
+        System.out.println("~~ Error común ~~");
+
+        // Calcular el error absoluto exacto
+        double errorAbsolutoExacto = Math.abs(c - raizReal);
+
+        // Formatear el error absoluto exacto a un formato adecuado
+        String formattedErrorAbsolutoExacto = df.format(errorAbsolutoExacto);
+
+        // Imprimir el valor aproximado de la raíz junto con el error absoluto
+        System.out.println("La raíz es aproximadamente: " + c + " ± " + formattedErrorAbsolutoExacto + "\n");
     }
 }

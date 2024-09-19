@@ -61,11 +61,12 @@ public class Interpolaciones {
                 break;
 
             case 3:
-                // Otro método (aún no implementado)
+                // Interpolación Spline Cubica
                 //System.out.println("Ingresar el nombre del archivo donde está la matriz");
                 //dir = sc.nextLine();
                 //lectura(dir);  // Leer la matriz desde el archivo
-                // Comentado porque aún no está implementado
+                //SplineCubica sp = new SplineCubica(A, filas);
+                //sp.interpolar();
                 break;
 
             default:
